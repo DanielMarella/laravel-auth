@@ -21,8 +21,14 @@
                             <td>{{$post -> title}}</td>
                             <td>{{$post -> slug}}</td>
                             <td>
+                                <a href="" class="btn btn-sm btn-primary">
+                                    View
+                                </a>
                                 <a href="" class="btn btn-sm btn-success">
                                     Edit
+                                </a>
+                                <a href="" class="btn btn-sm btn-warning">
+                                    Delete
                                 </a>
                             </td>
                         </tr>
