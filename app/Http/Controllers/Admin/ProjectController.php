@@ -38,9 +38,7 @@ class ProjectController extends Controller
         ]);
 
         $data['slug'] = Str::of($data['title'])->slug('-');
-        $newPost = new Post;
-        $newPost->fill($data);
-        $newPost->save();
+        $newPost = Post::create($data);
         
         return redirect()->route('admin.posts.index');
     }
