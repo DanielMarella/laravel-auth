@@ -27,9 +27,13 @@
                                 <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-sm btn-success">
                                     Edit
                                 </a>
-                                <a href="" class="btn btn-sm btn-warning">
-                                    Delete
-                                </a>
+                                <form  class="d-inline-block" action="{{ route('admin.posts.destroy', $post) }} " method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        Delete
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
