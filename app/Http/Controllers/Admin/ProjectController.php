@@ -34,11 +34,13 @@ class ProjectController extends Controller
         $data = $request->validate([
             'title' => ['required', 'unique:posts','min:3', 'max:255'],
             'image' => ['url:https'],
-            'title' => ['required','min:10'],
+            'content' => ['required','min:10'],
         ]);
 
         $data['slug'] = Str::of($data['title'])->slug('-');
-        $newPost = Post::create($data);
+        $newPost = new Post;
+        $newPost->fill($data);
+        $newPost->save();
         
         return redirect()->route('admin.posts.index');
     }
