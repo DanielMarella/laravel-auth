@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" id="posts-container">
     <div class="row justify-content-center">
         <div class="col-12">
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 <img src="{{$post -> image}}" class="card-img-top" alt="{{$post -> title}}">
                 <div class="card-body">
                     <h5 class="card-title">
@@ -19,10 +19,7 @@
                     <p class="card-text">
                         {{$post -> content}}
                     </p>
-                    <a href="" class="btn btn-sm btn-primary">
-                        View
-                    </a>
-                    <a href="" class="btn btn-sm btn-success">
+                    <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-sm btn-success">
                         Edit
                     </a>
                     <a href="" class="btn btn-sm btn-warning">
