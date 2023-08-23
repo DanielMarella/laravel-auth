@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
@@ -63,9 +64,18 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
-        
+        $data = $request->validate([
+            'title' => ['required','min:3', 'max:255', Rule::unique('posts')->ignore($post->id)],
+            'image' => ['url:https'],
+            'content' => ['required','min:10'],
+
+        ]);
+        $data['slug'] = Str::of($data['title'])->slug('-');
+        $post->update($data);
+        return redirect()->route('admin.posts.show',compact('post'));
+
     }
 
     /**
