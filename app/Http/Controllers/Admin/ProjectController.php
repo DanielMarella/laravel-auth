@@ -34,13 +34,13 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
 
-        $img_path = Storage::put('uploads', $request['image']);
         $data = $request->validate([
             'title' => ['required', 'unique:posts','min:3', 'max:255'],
             'image' => ['required', 'image'],
             'content' => ['required','min:10'],
         ]);
-
+        
+        $img_path = Storage::put('uploads', $request['image']);
         $data['image'] = $img_path;
         $data['slug'] = Str::of($data['title'])->slug('-');
         $newPost = Post::create($data);
@@ -108,8 +108,8 @@ class ProjectController extends Controller
 
     public function obliterate($id){
         $post = Post::onlyTrashed()->findOrFail($id);
+        Storage::delete($post->image);
         $post->forceDelete();
-
         return redirect()->route('admin.posts.index');
     }
 }
