@@ -21,7 +21,8 @@
                 @enderror
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
-                    <input type="text" class="form-control" id="image" placeholder="insert image link" name="image">
+                    {{-- <input type="text" class="form-control" id="image" placeholder="insert image link" name="image"> --}}
+                    <input type="file" name="image" id="image" class="form-control" placeholder="Upload your image">
                 </div>
                 @error('content')
                 <div class="alert alert-danger">{{$message}}</div>
