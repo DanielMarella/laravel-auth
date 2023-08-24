@@ -72,7 +72,7 @@ class ProjectController extends Controller
     {
         $data = $request->validate([
             'title' => ['required','min:3', 'max:255', Rule::unique('posts')->ignore($post->id)],
-            'image' => ['url:https'],
+            'image' => ['image'],
             'content' => ['required','min:10'],
 
         ]);
@@ -105,4 +105,13 @@ class ProjectController extends Controller
 
         return redirect()->route('admin.posts.show', $post);
     }
+
+    public function obliterate($id){
+        $post = Post::onlyTrashed()->findOrFail($id);
+        $post->forceDelete();
+
+        return redirect()->route('admin.posts.index');
+    }
 }
+
+

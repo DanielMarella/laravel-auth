@@ -31,10 +31,17 @@
                             <td>
                                 <form class="d-inline-block" action="{{ route('admin.posts.restore', $post) }}" method="POST">
                                     @csrf
-                                    @method('DELETE')
+                                    @method('POST')
 
                                     <button type="submit" class="btn btn-sm btn-warning">
                                         Restore
+                                    </button>
+                                </form>
+                                <form class="d-inline-block" action="{{route('admin.posts.obliterate', $post)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        PermaDelete
                                     </button>
                                 </form>
                             </td>

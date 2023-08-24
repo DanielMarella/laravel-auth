@@ -24,7 +24,8 @@ Auth::routes();
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', [ AdminDashboardController::class , 'home'])->name('home');
     Route::get('/posts/deleted', [ProjectController::class, 'deletedIndex'] )->name('posts.deleted');
-    Route::delete('/posts/deleted/{post}', [ProjectController::class, 'restore'] )->name('posts.restore');
+    Route::post('/posts/deleted/{post}', [ProjectController::class, 'restore'] )->name('posts.restore');
+    Route::delete('/posts/deleted/{post}', [ProjectController::class, 'obliterate'] )->name('posts.obliterate');
     Route::resource('/posts', ProjectController::class);
 });
 
