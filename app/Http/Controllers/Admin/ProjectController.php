@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -32,12 +33,15 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+
+        $img_path = Storage::put('uploads', $request['image']);
         $data = $request->validate([
             'title' => ['required', 'unique:posts','min:3', 'max:255'],
-            'image' => ['url:https'],
+            'image' => ['required', 'image'],
             'content' => ['required','min:10'],
         ]);
 
+        $data['image'] = $img_path;
         $data['slug'] = Str::of($data['title'])->slug('-');
         $newPost = Post::create($data);
         
