@@ -5,7 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
-                <img src="{{$post -> image}}" class="card-img-top" alt="{{$post -> title}}">
+                
+                @if (str_starts_with($post->image, 'http'))
+                    <img src="{{$post -> image}}" class="card-img-top" alt="{{$post -> title}}">
+                @else
+                    <img src="{{asset('storage/' . $post -> image)}}" class="card-img-top" alt="{{$post -> title}}">
+                @endif
+
                 <div class="card-body">
                     <h5 class="card-title">
                         ID: {{$post -> id}}
