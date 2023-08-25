@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin\Post;
+use App\Models\Admin\Project;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
-class PostSeeder extends Seeder
+class ProjectSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class PostSeeder extends Seeder
     public function run(Faker $faker): void
     {
         for ($i=0; $i < 100 ; $i++) { 
-            $newPost = new Post();
+            $newPost = new Project();
             $newPost->title = ucfirst($faker->unique()->words(4,true));
             $newPost->content = $faker->paragraph(10,true);
             $newPost->slug = $faker->slug();
