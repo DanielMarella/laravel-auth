@@ -94,7 +94,7 @@ class ProjectController extends Controller
 
     
     public function deletedIndex(){
-        $project = Project::onlyTrashed()->paginate(10);
+        $projects = Project::onlyTrashed()->paginate(10);
 
         return view('admin.projects.deleted', compact('projects'));
     }
