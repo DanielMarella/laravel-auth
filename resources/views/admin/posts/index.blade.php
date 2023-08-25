@@ -15,19 +15,19 @@
                   </thead>
                 
                 <tbody>
-                    @foreach ($posts as $post)
+                    @foreach ($projects as $project)
                         <tr>
-                            <th>{{$post -> id}}</th>
-                            <td>{{$post -> title}}</td>
-                            <td>{{$post -> slug}}</td>
+                            <th>{{$project -> id}}</th>
+                            <td>{{$project -> title}}</td>
+                            <td>{{$project -> slug}}</td>
                             <td>
-                                <a href="{{route('admin.posts.show', $post->id)}}" class="btn btn-sm btn-primary">
+                                <a href="{{route('admin.projects.show', $project->id)}}" class="btn btn-sm btn-primary">
                                     View
                                 </a>
-                                <a href="{{route('admin.posts.edit', $post->id)}}" class="btn btn-sm btn-success">
+                                <a href="{{route('admin.projects.edit', $project->id)}}" class="btn btn-sm btn-success">
                                     Edit
                                 </a>
-                                <form  class="d-inline-block" action="{{ route('admin.posts.destroy', $post) }} " method="POST">
+                                <form  class="d-inline-block" action="{{ route('admin.projects.destroy', $project) }} " method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">
@@ -40,7 +40,7 @@
                 </tbody>
                 
             </table>
-            {{ $posts -> links() }}
+            {{ $projects -> links() }}
         </div>
     </div>
 </div>

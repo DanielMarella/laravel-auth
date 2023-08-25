@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Post;
+use App\Models\Admin\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -16,8 +16,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(15);
-        return view('admin.posts.index', compact ('posts'));
+        $projects = Project::paginate(15);
+        return view('admin.projects.index', compact ('projects'));
     }
 
     /**
@@ -25,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        return view('admin.projects.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class ProjectController extends Controller
     {
 
         $data = $request->validate([
-            'title' => ['required', 'unique:posts','min:3', 'max:255'],
+            'title' => ['required', 'unique:projects','min:3', 'max:255'],
             'image' => ['required', 'image'],
             'content' => ['required','min:10'],
         ]);
@@ -43,74 +43,74 @@ class ProjectController extends Controller
         $img_path = Storage::put('uploads', $request['image']);
         $data['image'] = $img_path;
         $data['slug'] = Str::of($data['title'])->slug('-');
-        $newPost = Post::create($data);
+        $newProject = Project::create($data);
         
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.projects.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Project $project)
     {
-        return view('admin.posts.show', compact('post'));
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(Project $project)
     {
 
-        return view('admin.posts.edit', compact('post'));
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Project $project)
     {
         $data = $request->validate([
-            'title' => ['required','min:3', 'max:255', Rule::unique('posts')->ignore($post->id)],
+            'title' => ['required','min:3', 'max:255', Rule::unique('projects')->ignore($project->id)],
             'image' => ['image'],
             'content' => ['required','min:10'],
 
         ]);
         $data['slug'] = Str::of($data['title'])->slug('-');
-        $post->update($data);
-        return redirect()->route('admin.posts.show',compact('post'));
+        $project->update($data);
+        return redirect()->route('admin.projects.show',compact('project'));
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Project $project)
     {
-        $post->delete();
-        return redirect()->route('admin.posts.index');
+        $project->delete();
+        return redirect()->route('admin.projects.index');
     }
 
 
     
     public function deletedIndex(){
-        $posts = Post::onlyTrashed()->paginate(10);
+        $project = Project::onlyTrashed()->paginate(10);
 
-        return view('admin.posts.deleted', compact('posts'));
+        return view('admin.projects.deleted', compact('projects'));
     }
 
     public function restore($id){
-        $post = Post::onlyTrashed()->findOrFail($id);
-        $post->restore();
+        $project = Project::onlyTrashed()->findOrFail($id);
+        $project->restore();
 
-        return redirect()->route('admin.posts.show', $post);
+        return redirect()->route('admin.projects.show', $project);
     }
 
     public function obliterate($id){
-        $post = Post::onlyTrashed()->findOrFail($id);
-        Storage::delete($post->image);
-        $post->forceDelete();
-        return redirect()->route('admin.posts.index');
+        $project = Project::onlyTrashed()->findOrFail($id);
+        Storage::delete($project->image);
+        $project->forceDelete();
+        return redirect()->route('admin.projects.index');
     }
 }
 

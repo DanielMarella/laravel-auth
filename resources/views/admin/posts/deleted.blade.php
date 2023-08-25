@@ -15,21 +15,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ( $posts as $post )
+                    @foreach ( $projects as $project )
                         <tr>
                             <th>
-                                {{ $post->id }}
+                                {{ $project->id }}
                             </th>
                             <td>
                                 <strong>
-                                    {{ $post->title }}
+                                    {{ $project->title }}
                                 </strong>
                             </td>
                             <td>
-                                {{ $post->slug }}
+                                {{ $project->slug }}
                             </td>
                             <td>
-                                <form class="d-inline-block" action="{{ route('admin.posts.restore', $post) }}" method="POST">
+                                <form class="d-inline-block" action="{{ route('admin.projects.restore', $project) }}" method="POST">
                                     @csrf
                                     @method('POST')
 
@@ -37,7 +37,7 @@
                                         Restore
                                     </button>
                                 </form>
-                                <form class="d-inline-block" action="{{route('admin.posts.obliterate', $post)}}" method="POST">
+                                <form class="d-inline-block" action="{{route('admin.projects.obliterate', $project)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">
@@ -52,7 +52,7 @@
 
             </table>
 
-            {{ $posts->links() }}
+            {{ $projects->links() }}
 
         </div>
     </div>
